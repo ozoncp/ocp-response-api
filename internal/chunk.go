@@ -1,8 +1,17 @@
 package utils
 
+func chunkBufferSize(l int, chunkSize int) int {
+	bufferSize := l / chunkSize
+	if l%chunkSize != 0 {
+		bufferSize = bufferSize + 1
+	}
+
+	return bufferSize
+}
+
 func Chunk(slice []interface{}, chunkSize int) [][]interface{} {
 	l := len(slice)
-	chunks := make([][]interface{}, l/chunkSize)
+	chunks := make([][]interface{}, chunkBufferSize(l, chunkSize))
 
 	for i := 0; i < l; i++ {
 		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
@@ -13,7 +22,7 @@ func Chunk(slice []interface{}, chunkSize int) [][]interface{} {
 
 func ChunkString(slice []string, chunkSize int) [][]string {
 	l := len(slice)
-	chunks := make([][]string, l/chunkSize+1)
+	chunks := make([][]string, chunkBufferSize(l, chunkSize))
 
 	for i := 0; i < l; i++ {
 		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
@@ -24,7 +33,7 @@ func ChunkString(slice []string, chunkSize int) [][]string {
 
 func ChunkInt(slice []int, chunkSize int) [][]int {
 	l := len(slice)
-	chunks := make([][]int, l/chunkSize+1)
+	chunks := make([][]int, chunkBufferSize(l, chunkSize))
 
 	for i := 0; i < l; i++ {
 		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
@@ -35,7 +44,7 @@ func ChunkInt(slice []int, chunkSize int) [][]int {
 
 func ChunkByte(slice []byte, chunkSize int) [][]byte {
 	l := len(slice)
-	chunks := make([][]byte, l/chunkSize+1)
+	chunks := make([][]byte, chunkBufferSize(l, chunkSize))
 
 	for i := 0; i < l; i++ {
 		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
@@ -46,7 +55,7 @@ func ChunkByte(slice []byte, chunkSize int) [][]byte {
 
 func ChunkFloat32(slice []float32, chunkSize int) [][]float32 {
 	l := len(slice)
-	chunks := make([][]float32, l/chunkSize+1)
+	chunks := make([][]float32, chunkBufferSize(l, chunkSize))
 
 	for i := 0; i < l; i++ {
 		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
@@ -57,7 +66,7 @@ func ChunkFloat32(slice []float32, chunkSize int) [][]float32 {
 
 func ChunkFloat64(slice []float64, chunkSize int) [][]float64 {
 	l := len(slice)
-	chunks := make([][]float64, l/chunkSize+1)
+	chunks := make([][]float64, chunkBufferSize(l, chunkSize))
 
 	for i := 0; i < l; i++ {
 		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])

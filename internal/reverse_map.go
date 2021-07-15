@@ -35,3 +35,48 @@ func ReverseStringString(dict map[string]string) map[string]string {
 	}
 	return reverseDict
 }
+
+func ReverseStringInterface(dict map[string]interface{}) map[interface{}]string {
+	reverseDict := make(map[interface{}]string)
+
+	for k, v := range dict {
+		reverseDict[v] = k
+	}
+	return reverseDict
+}
+
+func ReverseInterfaceString(dict map[interface{}]string) map[string]interface{} {
+	reverseDict := make(map[string]interface{})
+
+	for k, v := range dict {
+		reverseDict[v] = k
+	}
+	return reverseDict
+}
+
+func Reverse(dict map[interface{}]interface{}) map[interface{}]interface{} {
+	reverseDict := make(map[interface{}]interface{})
+
+	for k, v := range dict {
+		reverseDict[v] = k
+	}
+	return reverseDict
+}
+
+func ReverseIntInterface(dict map[int]interface{}) map[interface{}]int {
+	reverseDict := make(map[interface{}]int)
+
+	for k, v := range dict {
+		reverseDict[v] = k
+	}
+	return reverseDict
+}
+
+func ReverseInterfaceInt(dict map[interface{}]int) map[int]interface{} {
+	reverseDict := make(map[int]interface{})
+
+	for k, v := range dict {
+		reverseDict[v] = k
+	}
+	return reverseDict
+}
