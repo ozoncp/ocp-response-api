@@ -1,26 +1,14 @@
-package utils
+package tests
 
 import (
+	"github.com/ozoncp/ocp-response-api/internal/utils"
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 )
 
-func getNums() (slice []int) {
-	slice = []int{13, 1, 2, 16, 2, 12, 3, 34, 5, 22, 7, 8, 49}
-	return
-}
-
-func getStrings() (slice []string) {
-	slice = []string{
-		"thirteen", "one", "two", "twelve", "six",
-		"twenty two", "twenty four", "three",
-		"thirty four", "five", "seven", "eight", "forty nine"}
-	return
-}
-
 func TestFilterEven(t *testing.T) {
-	filtered := FilterInt(getNums(), func(i int) bool {
+	filtered := utils.FilterInt(GetNums(), func(i int) bool {
 		return i%2 == 0
 	})
 
@@ -29,7 +17,7 @@ func TestFilterEven(t *testing.T) {
 }
 
 func TestFilterTwos(t *testing.T) {
-	filtered := FilterString(getStrings(), func(s string) bool {
+	filtered := utils.FilterString(GetStrings(), func(s string) bool {
 		return strings.HasPrefix(s, "tw")
 	})
 
@@ -38,7 +26,7 @@ func TestFilterTwos(t *testing.T) {
 }
 
 func TestThreeLetters(t *testing.T) {
-	filtered := FilterString(getStrings(), func(s string) bool {
+	filtered := utils.FilterString(GetStrings(), func(s string) bool {
 		return len(s) == 3
 	})
 
@@ -47,7 +35,7 @@ func TestThreeLetters(t *testing.T) {
 }
 
 func TestFilterOdd(t *testing.T) {
-	filtered := FilterInt(getNums(), func(i int) bool {
+	filtered := utils.FilterInt(GetNums(), func(i int) bool {
 		return i%2 != 0
 	})
 
@@ -56,7 +44,7 @@ func TestFilterOdd(t *testing.T) {
 }
 
 func TestFilterEmptyResult(t *testing.T) {
-	filtered := FilterInt(getNums(), func(i int) bool {
+	filtered := utils.FilterInt(GetNums(), func(i int) bool {
 		return i%15 == 0
 	})
 
@@ -65,11 +53,11 @@ func TestFilterEmptyResult(t *testing.T) {
 }
 
 func TestFilterEmpty(t *testing.T) {
-	filteredInts := FilterInt([]int{}, func(i int) bool {
+	filteredInts := utils.FilterInt([]int{}, func(i int) bool {
 		return i != 0
 	})
 
-	filteredStrings := FilterString([]string{}, func(i string) bool {
+	filteredStrings := utils.FilterString([]string{}, func(i string) bool {
 		return i != ""
 	})
 
