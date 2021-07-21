@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-// RepeatableRead reads file item times and return file content
+// RepeatableRead reads file iter times and return file content
 func RepeatableRead(filePath string, iter uint64) ([]string, error) {
 
 	readFile := func() (content string, err error) {
