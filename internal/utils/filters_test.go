@@ -7,6 +7,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func getNums() (slice []int) {
+	slice = []int{13, 1, 2, 16, 2, 12, 3, 34, 5, 22, 7, 8, 49}
+	return
+}
+
+func getStrings() []string {
+	return []string{
+		"one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+		"twelve", "thirteen", "twenty two", "twenty four", "thirty four", "forty nine"}
+}
+
 func TestFilterInt(t *testing.T) {
 	tests := []struct {
 		slice    []int
@@ -14,17 +25,17 @@ func TestFilterInt(t *testing.T) {
 		expected []int
 	}{
 		{
-			slice:    GetNums(),
+			slice:    getNums(),
 			filter:   func(i int) bool { return i%2 == 0 },
 			expected: []int{2, 16, 2, 12, 34, 22, 8},
 		},
 		{
-			slice:    GetNums(),
+			slice:    getNums(),
 			filter:   func(i int) bool { return i%2 != 0 },
 			expected: []int{13, 1, 3, 5, 7, 49},
 		},
 		{
-			slice:    GetNums(),
+			slice:    getNums(),
 			filter:   func(i int) bool { return i%15 == 0 },
 			expected: []int(nil),
 		},
@@ -50,12 +61,12 @@ func TestFilterStrings(t *testing.T) {
 		expected []string
 	}{
 		{
-			slice:    GetStrings(),
+			slice:    getStrings(),
 			filter:   func(s string) bool { return strings.HasPrefix(s, "tw") },
 			expected: []string{"two", "twelve", "twenty two", "twenty four"},
 		},
 		{
-			slice:    GetStrings(),
+			slice:    getStrings(),
 			filter:   func(s string) bool { return len(s) == 3 },
 			expected: []string{"one", "two", "six"},
 		},

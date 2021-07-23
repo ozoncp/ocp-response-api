@@ -6,8 +6,24 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type testCase struct {
+	file            string
+	repeats         int
+	expectedRepeats int
+	isError         bool
+}
+
+func getFileRepeatsData() []testCase {
+	return []testCase{
+		{"response.go", 10000, 10000, false},
+		{"response_2.go", 1, 0, true},
+		{"", 1, 0, true},
+		{"response.go", 0, 0, false},
+	}
+}
+
 func TestRepeatableReadFiles(t *testing.T) {
-	tests := GetFileRepeatsData()
+	tests := getFileRepeatsData()
 
 	for _, item := range tests {
 		result, err := RepeatableRead(item.file, item.repeats)
