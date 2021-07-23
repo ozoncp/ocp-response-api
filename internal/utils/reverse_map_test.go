@@ -1,17 +1,17 @@
-package tests
+package utils
 
 import (
-	"github.com/ozoncp/ocp-response-api/internal/utils"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestReverse(t *testing.T) {
 	intMap, stringsMap, intStrMap, strIntMap := GetMaps()
-	reverseMapInts := utils.ReverseIntInt(intMap)
-	reverseMapStrings := utils.ReverseStringString(stringsMap)
-	reverseMapIntStr := utils.ReverseIntString(intStrMap)
-	reverseMapStrInt := utils.ReverseStringInt(strIntMap)
+	reverseMapInts := ReverseIntInt(intMap)
+	reverseMapStrings := ReverseStringString(stringsMap)
+	reverseMapIntStr := ReverseIntString(intStrMap)
+	reverseMapStrInt := ReverseStringInt(strIntMap)
 
 	assert.Equal(t, len(intMap), len(reverseMapInts))
 	assert.Equal(t, len(stringsMap), len(reverseMapStrings))
@@ -34,7 +34,7 @@ func TestReverse(t *testing.T) {
 
 func TestEmptyMap(t *testing.T) {
 	emptyMap := map[int]int{}
-	reverseMap := utils.ReverseIntInt(emptyMap)
+	reverseMap := ReverseIntInt(emptyMap)
 
 	assert.Equal(t, reverseMap, emptyMap)
 }

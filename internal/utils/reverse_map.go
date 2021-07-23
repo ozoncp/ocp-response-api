@@ -1,6 +1,6 @@
 package utils
 
-// ReverseIntInt Swap keys and values of map
+// ReverseIntInt swap keys and values of map
 func ReverseIntInt(dict map[int]int) map[int]int {
 	reverseDict := make(map[int]int)
 
@@ -10,7 +10,7 @@ func ReverseIntInt(dict map[int]int) map[int]int {
 	return reverseDict
 }
 
-// ReverseIntString Swap keys and values
+// ReverseIntString swap keys and values
 func ReverseIntString(dict map[int]string) map[string]int {
 	reverseDict := make(map[string]int)
 
@@ -20,7 +20,7 @@ func ReverseIntString(dict map[int]string) map[string]int {
 	return reverseDict
 }
 
-// ReverseStringInt Swap keys and values
+// ReverseStringInt swap keys and values
 func ReverseStringInt(dict map[string]int) map[int]string {
 	reverseDict := make(map[int]string)
 
@@ -30,7 +30,7 @@ func ReverseStringInt(dict map[string]int) map[int]string {
 	return reverseDict
 }
 
-// ReverseStringString Swap keys and values
+// ReverseStringString swap keys and values
 func ReverseStringString(dict map[string]string) map[string]string {
 	reverseDict := make(map[string]string)
 

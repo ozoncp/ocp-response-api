@@ -1,16 +1,16 @@
-package tests
+package utils
 
 import (
-	"github.com/ozoncp/ocp-response-api/internal/utils"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRepeatableReadFiles(t *testing.T) {
 	tests := GetFileRepeatsData()
 
 	for _, item := range tests {
-		result, err := utils.RepeatableRead(item.file, item.repeats)
+		result, err := RepeatableRead(item.file, item.repeats)
 
 		if item.isError {
 			assert.NotEqual(t, err, nil)

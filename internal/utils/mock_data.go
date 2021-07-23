@@ -1,10 +1,8 @@
-package tests
-
-import "github.com/ozoncp/ocp-response-api/domain"
+package utils
 
 type TestCase struct {
 	file            string
-	repeats         uint64
+	repeats         int
 	expectedRepeats int
 	isError         bool
 }
@@ -24,12 +22,10 @@ func GetNums() (slice []int) {
 	return
 }
 
-func GetStrings() (slice []string) {
-	slice = []string{
-		"thirteen", "one", "two", "twelve", "six",
-		"twenty two", "twenty four", "three",
-		"thirty four", "five", "seven", "eight", "forty nine"}
-	return
+func GetStrings() []string {
+	return []string{
+		"one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+		"twelve", "thirteen", "twenty two", "twenty four", "thirty four", "forty nine"}
 }
 
 func GetMaps() (dataInts map[int]int, dataStrings map[string]string, dataIntStr map[int]string, dataStrInts map[string]int) {
@@ -40,18 +36,18 @@ func GetMaps() (dataInts map[int]int, dataStrings map[string]string, dataIntStr 
 	return
 }
 
-func Get10Responses() []domain.Response {
-	return []domain.Response{
-		*domain.NewResponse(0, 0, 0, "text0"),
-		*domain.NewResponse(3, 3, 3, "text3"),
-		*domain.NewResponse(2, 2, 2, "text2"),
-		*domain.NewResponse(1, 1, 1, "text1"),
-		*domain.NewResponse(4, 4, 4, "text4"),
-		*domain.NewResponse(5, 5, 5, "text5"),
-		*domain.NewResponse(6, 6, 6, "text6"),
-		*domain.NewResponse(7, 7, 7, "text7"),
-		*domain.NewResponse(8, 8, 8, "text8"),
-		*domain.NewResponse(9, 9, 9, "text9"),
+func Get10Responses() []Response {
+	return []Response{
+		{Id: 0, UserId: 0, RequestId: 0, Text: "text0"},
+		{Id: 1, UserId: 1, RequestId: 1, Text: "text1"},
+		{Id: 2, UserId: 2, RequestId: 2, Text: "text2"},
+		{Id: 3, UserId: 3, RequestId: 3, Text: "text3"},
+		{Id: 4, UserId: 4, RequestId: 4, Text: "text4"},
+		{Id: 5, UserId: 5, RequestId: 5, Text: "text5"},
+		{Id: 6, UserId: 6, RequestId: 6, Text: "text6"},
+		{Id: 7, UserId: 7, RequestId: 7, Text: "text7"},
+		{Id: 8, UserId: 8, RequestId: 8, Text: "text8"},
+		{Id: 9, UserId: 9, RequestId: 9, Text: "text9"},
 	}
 }
 

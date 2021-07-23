@@ -1,19 +1,18 @@
 package utils
 
 import (
-	"errors"
-	"github.com/ozoncp/ocp-response-api/domain"
+	"fmt"
 )
 
-// ToMap Create map from slice of Responses
-func ToMap(entities []domain.Response) (map[uint64]domain.Response, error) {
-	dict := make(map[uint64]domain.Response)
-	for _, v := range entities {
-		if _, ok := dict[v.Id]; ok {
-			return nil, errors.New(DuplicateIdError)
+// ToMap create map from slice of Responses
+func ToMap(entities []Response) (map[uint64]Response, error) {
+	res := make(map[uint64]Response, len(entities))
+	for _, entity := range entities {
+		if _, ok := res[entity.Id]; ok {
+			return nil, fmt.Errorf("error while transofming responses to map: dublicate response was found: [%s]", entity.ToString())
 		}
-		dict[v.Id] = v
+		res[entity.Id] = entity
 	}
 
-	return dict, nil
+	return res, nil
 }

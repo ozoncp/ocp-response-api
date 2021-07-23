@@ -1,8 +1,7 @@
 package utils
 
 import (
-	"errors"
-	"github.com/ozoncp/ocp-response-api/domain"
+	"fmt"
 )
 
 func chunkBufferSize(length int, chunkSize int) int {
@@ -16,58 +15,73 @@ func chunkBufferSize(length int, chunkSize int) int {
 
 func validate(length int, chunkSize int) error {
 	if chunkSize <= 0 {
-		return errors.New(ChunkSizeLEqualZeroError)
+		return fmt.Errorf("error while validating input params: chunkSize must be more zero, chunkSize: [%d]", chunkSize)
 	}
 	if length < chunkSize {
-		return errors.New(ChunkSizeGreaterSliceSizeError)
+		return fmt.Errorf("error while validating input params: chunkSize must be less than slice size, chunkSize: [%d]", chunkSize)
 	}
 	return nil
 }
 
-// ChunkString Makes chunks from slice of strings
+// ChunkString makes chunks from slice of strings
 func ChunkString(slice []string, chunkSize int) ([][]string, error) {
 	l := len(slice)
 	if err := validate(l, chunkSize); err != nil {
 		return nil, err
 	}
 
-	chunks := make([][]string, chunkBufferSize(l, chunkSize))
+	chunksCount := chunkBufferSize(l, chunkSize)
+	res := make([][]string, chunksCount)
 
-	for i := 0; i < l; i++ {
-		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
+	start := 0
+	i := 0
+	for ; i < chunksCount-1; i++ {
+		res[i] = slice[start : start+chunkSize]
+		start += chunkSize
 	}
+	res[i] = slice[start:]
 
-	return chunks, nil
+	return res, nil
 }
 
-// ChunkInt Makes chunks from slice of ints
+// ChunkInt makes chunks from slice of ints
 func ChunkInt(slice []int, chunkSize int) ([][]int, error) {
 	l := len(slice)
 	if err := validate(l, chunkSize); err != nil {
 		return nil, err
 	}
 
-	chunks := make([][]int, chunkBufferSize(l, chunkSize))
+	chunksCount := chunkBufferSize(l, chunkSize)
+	res := make([][]int, chunksCount)
 
-	for i := 0; i < l; i++ {
-		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
+	start := 0
+	i := 0
+	for ; i < chunksCount-1; i++ {
+		res[i] = slice[start : start+chunkSize]
+		start += chunkSize
 	}
+	res[i] = slice[start:]
 
-	return chunks, nil
+	return res, nil
 }
 
-// ChunkResponse Makes chunks from slice of Responses
-func ChunkResponse(slice []domain.Response, chunkSize int) ([][]domain.Response, error) {
+// ChunkResponse makes chunks from slice of Responses
+func ChunkResponse(slice []Response, chunkSize int) ([][]Response, error) {
 	l := len(slice)
 	if err := validate(l, chunkSize); err != nil {
 		return nil, err
 	}
 
-	chunks := make([][]domain.Response, chunkBufferSize(l, chunkSize))
+	chunksCount := chunkBufferSize(l, chunkSize)
+	res := make([][]Response, chunksCount)
 
-	for i := 0; i < l; i++ {
-		chunks[i/chunkSize] = append(chunks[i/chunkSize], slice[i])
+	start := 0
+	i := 0
+	for ; i < chunksCount-1; i++ {
+		res[i] = slice[start : start+chunkSize]
+		start += chunkSize
 	}
+	res[i] = slice[start:]
 
-	return chunks, nil
+	return res, nil
 }
