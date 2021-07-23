@@ -12,6 +12,7 @@ func RepeatableRead(filePath string, iter int) ([]string, error) {
 	if iter <= 0 {
 		return nil, errors.New("iter must be greater than 0")
 	}
+
 	readFile := func() (string, error) {
 		file, err := os.OpenFile(filePath, os.O_RDONLY, 0666)
 		if err != nil {
