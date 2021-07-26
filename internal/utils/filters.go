@@ -1,6 +1,6 @@
 package utils
 
-// FilterInt Filtering slice of ints
+// FilterInt filters slice of ints
 func FilterInt(slice []int, filterFunc func(int) bool) []int {
 	var filtered []int
 	for _, item := range slice {
@@ -12,7 +12,7 @@ func FilterInt(slice []int, filterFunc func(int) bool) []int {
 	return filtered
 }
 
-// FilterString Filtering slice of strings
+// FilterString filters slice of strings
 func FilterString(slice []string, filterFunc func(string) bool) []string {
 	var filtered []string
 	for _, item := range slice {

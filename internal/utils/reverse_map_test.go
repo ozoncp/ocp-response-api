@@ -1,47 +1,115 @@
 package utils
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func getMaps() (dataInts map[int]int, dataStrings map[string]string, dataIntStr map[int]string, dataStrInts map[string]int) {
-	dataInts = map[int]int{0: 1, 1: 2}
-	dataStrings = map[string]string{"zero": "one", "one": "two"}
-	dataIntStr = map[int]string{1: "one", 2: "two"}
-	dataStrInts = map[string]int{"one": 1, "two": 2}
-	return
-}
-
-func TestReverse(t *testing.T) {
-	intMap, stringsMap, intStrMap, strIntMap := getMaps()
-	reverseMapInts := ReverseIntInt(intMap)
-	reverseMapStrings := ReverseStringString(stringsMap)
-	reverseMapIntStr := ReverseIntString(intStrMap)
-	reverseMapStrInt := ReverseStringInt(strIntMap)
-
-	assert.Equal(t, len(intMap), len(reverseMapInts))
-	assert.Equal(t, len(stringsMap), len(reverseMapStrings))
-	assert.Equal(t, len(intStrMap), len(reverseMapIntStr))
-	assert.Equal(t, len(strIntMap), len(reverseMapStrInt))
-
-	for k, v := range intMap {
-		assert.Equal(t, k, reverseMapInts[v])
+func TestReverseIntInt(t *testing.T) {
+	tests := []struct {
+		dict     map[int]int
+		expected map[int]int
+	}{
+		{
+			dict:     map[int]int{0: 1, 1: 2},
+			expected: map[int]int{1: 0, 2: 1},
+		},
+		{
+			dict:     map[int]int{},
+			expected: map[int]int{},
+		},
+		{
+			dict:     map[int]int{0: 1, 1: 1},
+			expected: nil,
+		},
 	}
-	for k, v := range stringsMap {
-		assert.Equal(t, k, reverseMapStrings[v])
-	}
-	for k, v := range intStrMap {
-		assert.Equal(t, k, reverseMapIntStr[v])
-	}
-	for k, v := range strIntMap {
-		assert.Equal(t, k, reverseMapStrInt[v])
+
+	for _, tt := range tests {
+		t.Run("", func(t *testing.T) {
+			actual, _ := ReverseIntInt(tt.dict)
+			assert.Equal(t, actual, tt.expected)
+		})
 	}
 }
 
-func TestEmptyMap(t *testing.T) {
-	emptyMap := map[int]int{}
-	reverseMap := ReverseIntInt(emptyMap)
+func TestReverseIntString(t *testing.T) {
+	tests := []struct {
+		dict     map[int]string
+		expected map[string]int
+	}{
+		{
+			dict:     map[int]string{0: "1", 1: "2"},
+			expected: map[string]int{"1": 0, "2": 1},
+		},
+		{
+			dict:     map[int]string{},
+			expected: map[string]int{},
+		},
+		{
+			dict:     map[int]string{0: "1", 1: "1"},
+			expected: nil,
+		},
+	}
 
-	assert.Equal(t, reverseMap, emptyMap)
+	for _, tt := range tests {
+		t.Run("", func(t *testing.T) {
+			actual, _ := ReverseIntString(tt.dict)
+			assert.Equal(t, actual, tt.expected)
+		})
+	}
+}
+
+func TestReverseStringInt(t *testing.T) {
+	tests := []struct {
+		dict     map[string]int
+		expected map[int]string
+	}{
+		{
+			dict:     map[string]int{"0": 1, "1": 2},
+			expected: map[int]string{1: "0", 2: "1"},
+		},
+		{
+			dict:     map[string]int{},
+			expected: map[int]string{},
+		},
+		{
+			dict:     map[string]int{"0": 1, "1": 1},
+			expected: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run("", func(t *testing.T) {
+			actual, _ := ReverseStringInt(tt.dict)
+			assert.Equal(t, actual, tt.expected)
+		})
+	}
+}
+
+func TestReverseStringString(t *testing.T) {
+	tests := []struct {
+		dict     map[string]string
+		expected map[string]string
+	}{
+		{
+			dict:     map[string]string{"0": "1", "1": "2"},
+			expected: map[string]string{"1": "0", "2": "1"},
+		},
+		{
+			dict:     map[string]string{},
+			expected: map[string]string{},
+		},
+		{
+			dict:     map[string]string{"0": "1", "1": "1"},
+			expected: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run("", func(t *testing.T) {
+			actual, _ := ReverseStringString(tt.dict)
+			assert.Equal(t, actual, tt.expected)
+		})
+	}
 }
