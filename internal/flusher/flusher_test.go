@@ -23,14 +23,13 @@ var _ = Describe("Flusher", func() {
 		ctrl     *gomock.Controller
 		mockRepo *mocks.MockResponseRepo
 		f        flusher.Flusher
-		pMarker  string
 	)
+	pMarker := "panic"
 
 	BeforeEach(func() {
 		ctrl = gomock.NewController(GinkgoT())
 		mockRepo = mocks.NewMockResponseRepo(ctrl)
 		f = flusher.NewFlusher(5, mockRepo)
-		pMarker = "panic"
 	})
 
 	AfterEach(func() { ctrl.Finish() })
@@ -42,7 +41,7 @@ var _ = Describe("Flusher", func() {
 				Return(repoReturns)
 
 			if expected == pMarker {
-				gomega.Expect(func() { f.Flush(responses) }).Should(gomega.Panic())
+				gomega.Ω(func() { f.Flush(responses) }).Should(gomega.Panic())
 			} else {
 				gomega.Ω(f.Flush(responses)).To(gomega.Equal(expected))
 			}
