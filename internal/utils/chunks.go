@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"github.com/ozoncp/ocp-response-api/internal/models"
 )
 
 func chunkBufferSize(length int, chunkSize int) int {
@@ -66,14 +67,14 @@ func ChunkInt(slice []int, chunkSize int) ([][]int, error) {
 }
 
 // ChunkResponse makes chunks from slice of Responses
-func ChunkResponse(slice []Response, chunkSize int) ([][]Response, error) {
+func ChunkResponse(slice []models.Response, chunkSize int) ([][]models.Response, error) {
 	l := len(slice)
 	if err := validate(l, chunkSize); err != nil {
 		return nil, err
 	}
 
 	chunksCount := chunkBufferSize(l, chunkSize)
-	res := make([][]Response, chunksCount)
+	res := make([][]models.Response, chunksCount)
 
 	start := 0
 	i := 0
