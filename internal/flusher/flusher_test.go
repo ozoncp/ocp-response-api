@@ -2,6 +2,7 @@ package flusher_test
 
 import (
 	"errors"
+	"github.com/ozoncp/ocp-response-api/internal/utils"
 
 	"github.com/golang/mock/gomock"
 	. "github.com/onsi/ginkgo"
@@ -30,6 +31,7 @@ var _ = Describe("Flusher", func() {
 		ctrl     *gomock.Controller
 		mockRepo *mocks.MockRepo
 		f        flusher.Flusher
+		empty    []models.Response
 	)
 
 	BeforeEach(func() {
@@ -44,11 +46,41 @@ var _ = Describe("Flusher", func() {
 		func(responses []models.Response, repoReturns error, expected interface{}) {
 			mockRepo.EXPECT().
 				AddResponses(gomock.Any()).
-				Return(repoReturns).MaxTimes(2)
+				Return(repoReturns).MaxTimes(4)
 
 			gomega.Ω(f.Flush(responses)).To(gomega.Equal(expected))
 		},
 
 		table.Entry("ok", getResponses(), nil, getResponses()),
-		table.Entry("error", getResponses(), errors.New("test"), getResponses()))
+		table.Entry("error", getResponses(), errors.New("test"), empty))
+})
+
+var _ = Describe("FlusherWithErrors", func() {
+	var (
+		ctrl     *gomock.Controller
+		mockRepo *mocks.MockRepo
+		f        flusher.Flusher
+	)
+
+	BeforeEach(func() {
+		ctrl = gomock.NewController(GinkgoT())
+		mockRepo = mocks.NewMockRepo(ctrl)
+		f = flusher.NewFlusher(5, mockRepo)
+	})
+
+	AfterEach(func() { ctrl.Finish() })
+
+	errorResp := utils.FilterResponse(getResponses(), func(r models.Response) bool { return r.Id < 2 })
+	successResp := utils.FilterResponse(getResponses(), func(r models.Response) bool { return r.Id >= 2 })
+
+	table.DescribeTable("Test flusher",
+		func(responses []models.Response, errorReturns error, repoReturns error, expected interface{}) {
+			firstCall := mockRepo.EXPECT().AddResponses(errorResp).MaxTimes(1).Return(errorReturns)
+			mockRepo.EXPECT().AddResponses(gomock.Any()).After(firstCall).MaxTimes(3).Return(repoReturns)
+
+			gomega.Ω(f.Flush(responses)).To(gomega.Equal(expected))
+		},
+
+		table.Entry("error", getResponses(), errors.New("test"), nil, successResp),
+	)
 })

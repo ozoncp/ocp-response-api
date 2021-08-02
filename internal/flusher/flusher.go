@@ -26,11 +26,16 @@ type flusher struct {
 
 // Flush сбрасывает респонсы в хранилище
 func (f flusher) Flush(entities []models.Response) []models.Response {
-	if chunks, err := utils.ChunkResponse(entities, 5); err == nil {
+	var res []models.Response
+	chunks, err := utils.ChunkResponse(entities, 2)
+
+	if err == nil {
 		for _, chunk := range chunks {
-			_ = f.repo.AddResponses(chunk)
+			if e := f.repo.AddResponses(chunk); e == nil {
+				res = append(res, chunk...)
+			}
 		}
 	}
 
-	return entities
+	return res
 }
