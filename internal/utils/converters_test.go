@@ -1,10 +1,11 @@
 package utils
 
 import (
-	"github.com/ozoncp/ocp-response-api/internal/models"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/ozoncp/ocp-response-api/internal/models"
 )
 
 func get4Responses() []models.Response {

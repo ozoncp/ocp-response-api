@@ -15,10 +15,10 @@ type testCase struct {
 
 func getFileRepeatsData() []testCase {
 	return []testCase{
-		{"response.go", 10000, 10000, false},
-		{"response_2.go", 1, 0, true},
+		{"chunks.go", 10000, 10000, false},
+		{"chunks_2.go", 1, 0, true},
 		{"", 1, 0, true},
-		{"response.go", 0, 0, false},
+		{"chunks.go", 0, 0, false},
 	}
 }
 
