@@ -4,6 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/ozoncp/ocp-response-api/internal/models"
 )
 
 func getOneToTenInts() (slice []int) {
@@ -16,8 +18,8 @@ func getOneToTenStrings() (slice []string) {
 	return
 }
 
-func get10Responses() []Response {
-	return []Response{
+func get10Responses() []models.Response {
+	return []models.Response{
 		{Id: 0, UserId: 0, RequestId: 0, Text: "text0"},
 		{Id: 1, UserId: 1, RequestId: 1, Text: "text1"},
 		{Id: 2, UserId: 2, RequestId: 2, Text: "text2"},
@@ -105,14 +107,14 @@ func TestChunkStrings(t *testing.T) {
 
 func TestChunkResponses(t *testing.T) {
 	tests := []struct {
-		slice     []Response
+		slice     []models.Response
 		chunkSize int
-		expected  [][]Response
+		expected  [][]models.Response
 	}{
 		{
 			get10Responses(),
 			4,
-			[][]Response{
+			[][]models.Response{
 				{
 					{Id: 0, UserId: 0, RequestId: 0, Text: "text0"},
 					{Id: 1, UserId: 1, RequestId: 1, Text: "text1"},
@@ -142,7 +144,7 @@ func TestChunkResponses(t *testing.T) {
 			nil,
 		},
 		{
-			[]Response{},
+			[]models.Response{},
 			3,
 			nil,
 		},

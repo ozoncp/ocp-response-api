@@ -4,10 +4,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/ozoncp/ocp-response-api/internal/models"
 )
 
-func get4Responses() []Response {
-	return []Response{
+func get4Responses() []models.Response {
+	return []models.Response{
 		{Id: 0, UserId: 0, RequestId: 0, Text: "text0"},
 		{Id: 1, UserId: 1, RequestId: 1, Text: "text1"},
 		{Id: 2, UserId: 2, RequestId: 2, Text: "text2"},
@@ -17,12 +19,12 @@ func get4Responses() []Response {
 
 func TestGet4Responses(t *testing.T) {
 	tests := []struct {
-		slice    []Response
-		expected map[uint64]Response
+		slice    []models.Response
+		expected map[uint64]models.Response
 	}{
 		{
 			get4Responses(),
-			map[uint64]Response{
+			map[uint64]models.Response{
 				0: {Id: 0, UserId: 0, RequestId: 0, Text: "text0"},
 				1: {Id: 1, UserId: 1, RequestId: 1, Text: "text1"},
 				2: {Id: 2, UserId: 2, RequestId: 2, Text: "text2"},
@@ -30,7 +32,7 @@ func TestGet4Responses(t *testing.T) {
 			},
 		},
 		{
-			append(get4Responses(), Response{Id: 1, UserId: 1, RequestId: 1, Text: "test1"}),
+			append(get4Responses(), models.Response{Id: 1, UserId: 1, RequestId: 1, Text: "test1"}),
 			nil,
 		},
 	}
